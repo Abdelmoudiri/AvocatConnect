@@ -1,3 +1,50 @@
+<?php
+include 'conn.php';
+if (isset($_POST['signUp'])) {
+    $role = $_POST['role'];
+    $firstName = $_POST['fName'];
+    $lastName = $_POST['lName'];
+    $email = $_POST['email'];
+    $phone = $_POST['telefone'];
+    $password = $_POST['password'];
+    $hashpassword = password_hash($password, PASSWORD_BCRYPT);
+
+    
+        $filename = $_FILES['image']['name'];
+        $tempname = $_FILES['image']['tmp_name'];
+
+        $newfilename =uniqid()."-".$filename;
+
+        move_uploaded_file($tempname,'../uploads/'.$newfilename);    
+
+    $stmt = $conn->prepare("INSERT INTO user (nom, prenom, email, password, phone, image, id_role) 
+                            VALUES (?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("ssssssi", $lastName, $firstName, $email, $hashpassword, $phone, $newfilename, $role);
+
+    if ($stmt->execute()) {
+        $id_user = $conn->insert_id;
+        if ($role == 2) {
+            $specialites = isset($_POST['specialites']) ? $_POST['specialites'] : null;
+            $experience = isset($_POST['experience']) ? $_POST['experience'] : null;
+            $biographie = isset($_POST['biographie']) ? $_POST['biographie'] : null;
+            $stmt = $conn->prepare("INSERT INTO avocat (specialite, annee_exp, bio, id_user) 
+                                    VALUES (?, DATE_SUB(CURDATE(), INTERVAL ? YEAR), ?, ?)");
+            $stmt->bind_param("sssi", $specialites, $experience, $biographie, $id_user);
+            $stmt->execute();
+        }
+        
+        echo "Inscription réussie.";
+        header('Location: login.php');
+        exit;  
+    } else {
+        echo "Erreur lors de l'inscription : " . $stmt->error;
+    }
+
+    $stmt->close();
+    $conn->close();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +58,7 @@
     <div class="bg-white shadow-lg rounded-lg overflow-hidden max-w-lg w-full">
 <div id="signup" class="p-6 hidden">
     <h1 class="text-3xl font-bold text-center text-blue-600 mb-6">Create Account</h1>
-    <form method="post" action="register.php">
+    <form method="post" action="login.php" enctype="multipart/form-data">
         <div class="mb-4 relative">
             <label for="role" class="block text-gray-700 font-medium">Role</label>
             <select name="role" id="role" required 
@@ -48,7 +95,7 @@
         </div>
         <div class="mb-4 relative">
             <label for="photo" class="block text-gray-700 font-medium">Profile Photo</label>
-            <input type="file" name="photo" id="photo" 
+            <input type="file" name="image"
                 class="w-full border border-gray-300 focus:ring focus:ring-blue-200 focus:outline-none py-2 px-4 rounded">
         </div>
 
@@ -79,22 +126,9 @@
     </p>
 </div>
 
-<script>
-    document.getElementById('role').addEventListener('change', function() {
-        const role = this.value;
-        const avocatFields = document.getElementById('avocatFields');
-        if (role === 'avocat') {
-            avocatFields.classList.remove('hidden');
-        } else {
-            avocatFields.classList.add('hidden');
-        }
-    });
-</script>
-
-
         <div id="signIn" class="p-6">
             <h1 class="text-3xl font-bold text-center text-blue-600 mb-6">Welcome Back</h1>
-            <form method="post" action="index.php">
+            <form method="post" action="login.php" >
                 <div class="mb-4 relative">
                     <label for="emailLogin" class="block text-gray-700 font-medium">Email</label>
                     <input type="email" name="email" id="emailLogin" placeholder="Email" required 
