@@ -1,7 +1,6 @@
 <?php
-include 'conn.php';
-
-$sql = "SELECT a.id_avocat,
+    include 'conn.php';
+    $sql = "SELECT a.id_avocat,
             u.nom, 
             u.prenom, 
             u.image, 
@@ -12,12 +11,12 @@ $sql = "SELECT a.id_avocat,
         JOIN user u ON a.id_user = u.id_user 
         WHERE u.id_role = 2";
 
-
-$result = $conn->query($sql);
+    $result = $conn->query($sql);
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,7 +25,7 @@ $result = $conn->query($sql);
 </head>
 <body class="bg-[#F8F9F9]">
 
-   <!-- nav bar section -->
+   <!-- nav  -->
 <nav class="flex flex-wrap items-center justify-between p-3 bg-[#e8e8e5]">
     <div class="text-xl">Bappa Flour mill</div>
     <div class="flex md:hidden">
@@ -52,35 +51,33 @@ $result = $conn->query($sql);
         <a href="tel:+123">
             <div class="flex justify-end">
                 <div class="flex items-center h-10 w-30 rounded-md bg-[#c8a876] text-white font-medium p-2">
-                    <!-- Heroicon name: phone -->
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="w-6 h-6">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
-                    </svg>
-                    Call now
+                <img class="w-6 h-6" src="../src/asset/profile.png" alt="profile login image">
+
+                    Connect Now
                 </div>
             </div>
         </a>
     </div>
 
 </nav>
-<!-- hero seciton -->
+
+<!-- Hero Section -->
 <div class="relative w-full h-[320px]" id="home">
     <div class="absolute inset-0 opacity-70">
-        <img src="https://image1.jdomni.in/banner/13062021/0A/52/CC/1AF5FC422867D96E06C4B7BD69_1623557926542.png" alt="Background Image" class="object-cover object-center w-full h-full" />
-
+        <img src="../src/asset/bg.jpg" alt="Background Image" class="object-cover object-center w-full h-full" />
     </div>
     <div class="absolute inset-9 flex flex-col md:flex-row items-center justify-between">
         <div class="md:w-1/2 mb-4 md:mb-0">
-            <h1 class="text-grey-700 font-medium text-4xl md:text-5xl leading-tight mb-2">Bappa Flour mill</h1>
-            <p class="font-regular text-xl mb-8 mt-4">One stop solution for flour grinding services</p>
+            <h1 class="text-blue-700 font-medium text-4xl md:text-5xl leading-tight mb-2">Cabinet d'Avocats</h1>
+            <p class="font-regular text-xl mb-8 mt-4">Votre partenaire juridique de confiance</p>
             <a href="#contactUs"
-                class="px-6 py-3 bg-[#c8a876] text-white font-medium rounded-full hover:bg-[#c09858]  transition duration-200">Contact
-                Us</a>
+                class="px-6 py-3 bg-[#c8a876] text-white font-medium rounded-full hover:bg-[#c09858] transition duration-200">
+                Contactez-nous
+            </a>
         </div>
     </div>
 </div>
+
 
 <!-- our avocat section -->
 <section class="container mx-auto my-8 px-6">

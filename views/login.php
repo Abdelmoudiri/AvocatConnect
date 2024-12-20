@@ -1,5 +1,6 @@
 <?php
 include 'conn.php';
+
 if (isset($_POST['signUp'])) {
     $role = $_POST['role'];
     $firstName = $_POST['fName'];
@@ -8,8 +9,6 @@ if (isset($_POST['signUp'])) {
     $phone = $_POST['telefone'];
     $password = $_POST['password'];
     $hashpassword = password_hash($password, PASSWORD_BCRYPT);
-
-    
         $filename = $_FILES['image']['name'];
         $tempname = $_FILES['image']['tmp_name'];
 

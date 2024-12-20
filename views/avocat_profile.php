@@ -18,13 +18,11 @@ if (isset($_GET['id'])) {
             avocat.annee_exp, 
             avocat.bio 
         FROM 
-            user 
-        LEFT JOIN 
-            avocat 
-        ON 
-            user.id_user = avocat.id_user 
-        WHERE 
-            user.id_user = ?";
+        user 
+        JOIN avocat 
+        WHERE user.id_user = avocat.id_user 
+         
+        and avocat.id_avocat = ?";
 
     // Prepare the statement
     $stmt = $conn->prepare($sql);
