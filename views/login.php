@@ -64,8 +64,11 @@ if (isset($_POST['signUp'])) {
         .hover-text-dark-beige:hover { color: #c09858; }
     </style>
 </head>
-<body class="bg-light-gray min-h-screen flex items-center justify-center p-4">
-
+<body>
+<?php
+include 'header.php'
+?>
+<section class="bg-light-gray min-h-screen flex items-center justify-center p-4">
     <div class="bg-white shadow-lg rounded-lg overflow-hidden max-w-lg w-full">
         <div id="signup" class="p-6 hidden">
             <h1 class="text-3xl font-bold text-center text-dark-blue mb-6">Create Account</h1>
@@ -136,7 +139,6 @@ if (isset($_POST['signUp'])) {
         <button id="signInButton" class="text-action-button hover:underline">Sign In</button>
      </p>
     </div>
-
     <div id="signIn" class="p-6">
             <h1 class="text-3xl font-bold text-center text-dark-blue mb-6">Welcome Back</h1>
             <form method="post" action="login.php" >
@@ -162,6 +164,10 @@ if (isset($_POST['signUp'])) {
             </p>
         </div>
     </div>
+</section>
+    
+
+    
 
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <script src="../script.js?v=<?php echo time(); ?>"></script>
